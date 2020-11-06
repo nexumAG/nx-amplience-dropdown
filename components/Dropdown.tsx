@@ -1,4 +1,5 @@
 import React from 'react'
+import { NativeSelect } from '@material-ui/core'
 
 type DropdownOption = {
   id: string
@@ -22,12 +23,16 @@ export function Dropdown({ sdk, initialData }: { sdk: any; initialData: any }) {
   }
 
   return (
-    <select value={initialData || defaultValue} onChange={handleChange}>
+    <NativeSelect
+      defaultValue={initialData || defaultValue}
+      onChange={handleChange}
+      disabled={sdk.form.readOnly}
+    >
       {options.map(({ id, label }) => (
         <option key={id} value={id}>
           {label}
         </option>
       ))}
-    </select>
+    </NativeSelect>
   )
 }

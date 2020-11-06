@@ -2,6 +2,7 @@
   "name": "nx-amplience-dropdown",
   "version": "1.0.0",
   "scripts": {
+    "sec-dev": "node server.js",
     "dev": "next",
     "build": "next build",
     "start": "next start",
@@ -9,6 +10,7 @@
     "deploy": "rm -rf node_modules/.cache && next build && next export && touch out/.nojekyll && git add out/ && git commit -m \"Deploy Next.js to gh-pages\" && git subtree push --prefix out origin gh-pages"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
     "dc-extensions-sdk": "^1.1.0",
     "next": "latest",
     "react": "~17.0.1",

@@ -15,7 +15,7 @@ export function useExtension() {
 
   async function initialize() {
     try {
-      const sdk = await init<FieldModel, Parameters>()
+      const sdk = await init<FieldModel, Parameters>({ debug: true })
 
       setSDK(sdk)
     } catch (e) {
