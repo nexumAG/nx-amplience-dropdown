@@ -37,6 +37,7 @@ export function Dropdown({ sdk, initialData }: { sdk: any; initialData: any }) {
     <FormControl fullWidth>
       <InputLabel id="select-label-id">{sdk.field.schema?.title}</InputLabel>
       <Select
+        autoWidth
         labelId="select-label-id"
         defaultValue={initialData || defaultValue}
         disabled={sdk.form.readOnly}
