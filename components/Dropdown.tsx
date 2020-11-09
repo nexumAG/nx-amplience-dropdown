@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   Select,
-  MenuItem,
   FormControl,
   InputLabel,
   FormHelperText,
@@ -17,14 +16,19 @@ type DropdownParams = {
   options: [DropdownOption]
 }
 
-export function Dropdown({ sdk, initialData }: { sdk: any; initialData: any }) {
+export function Dropdown({
+  sdk,
+  initialData,
+  required,
+}: {
+  sdk: any
+  initialData: any
+  required: boolean
+}) {
   const { defaultValue, options } = sdk.params.instance as DropdownParams
 
   React.useEffect(() => {
     sdk.field.setValue(defaultValue)
-    setTimeout(() => {
-      sdk.frame.setHeight()
-    }, 0)
   }, [sdk])
 
   const handleChange = (
@@ -32,27 +36,22 @@ export function Dropdown({ sdk, initialData }: { sdk: any; initialData: any }) {
   ) => {
     sdk.field.setValue(ev.target.value)
   }
-
+  console.log(sdk.field.schema)
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth required={required}>
       <InputLabel id="select-label-id">{sdk.field.schema?.title}</InputLabel>
       <Select
         autoWidth
         labelId="select-label-id"
         defaultValue={initialData || defaultValue}
         disabled={sdk.form.readOnly}
+        native
         onChange={handleChange}
-        onOpen={() => {
-          sdk.frame.setHeight(options.length * 100)
-        }}
-        onClose={() => {
-          sdk.frame.setHeight()
-        }}
       >
         {options.map(({ id, label }) => (
-          <MenuItem key={id} value={id}>
+          <option key={id} value={id}>
             {label}
-          </MenuItem>
+          </option>
         ))}
       </Select>
       <FormHelperText>{sdk.field.schema?.description}</FormHelperText>

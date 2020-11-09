@@ -12,6 +12,7 @@ export function useExtension() {
   const [sdk, setSDK] = useState<SDK>()
   const [ready, setFetched] = useState<boolean>(false)
   const [initialData, setData] = useState<any>(false)
+  const [required, setRequired] = useState<any>(false)
 
   async function initialize() {
     try {
@@ -30,8 +31,9 @@ export function useExtension() {
     async function fetchInitialData() {
       try {
         const data = await sdk?.field.getValue()
-
+        const required = !(await sdk?.field.isValid(null))
         setData(data)
+        setRequired(required)
       } catch (e) {
       } finally {
         setFetched(true)
@@ -48,6 +50,7 @@ export function useExtension() {
   return {
     sdk,
     ready,
+    required,
     initialData,
   }
 }
