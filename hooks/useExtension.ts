@@ -15,11 +15,12 @@ export function useExtension() {
 
   async function initialize() {
     try {
-      const sdk = await init<FieldModel, Parameters>({ debug: true })
-
+      const sdk = await init<FieldModel, Parameters>({
+        debug: process.env.NODE_ENV !== 'production',
+      })
       setSDK(sdk)
     } catch (e) {
-      console.log('Not connected to DC')
+      console.error('Extension failed to connect to DC')
     }
   }
 

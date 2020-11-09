@@ -8,7 +8,7 @@ export default function Extension() {
     return <pre>Loading...</pre>
   }
 
-  sdk.frame.startAutoResizer()
+  //sdk.frame.startAutoResizer()
 
   return <Dropdown sdk={sdk} initialData={initialData} />
 }

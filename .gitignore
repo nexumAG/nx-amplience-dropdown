@@ -31,3 +31,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# dev certificates
+localhost.crt
+localhost.key

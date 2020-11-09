@@ -1,5 +1,11 @@
 import React from 'react'
-import { NativeSelect } from '@material-ui/core'
+import {
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  FormHelperText,
+} from '@material-ui/core'
 
 type DropdownOption = {
   id: string
@@ -16,23 +22,39 @@ export function Dropdown({ sdk, initialData }: { sdk: any; initialData: any }) {
 
   React.useEffect(() => {
     sdk.field.setValue(defaultValue)
+    setTimeout(() => {
+      sdk.frame.setHeight()
+    }, 0)
   }, [sdk])
 
-  const handleChange = (ev: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChange = (
+    ev: React.ChangeEvent<{ name?: string; value: unknown }>,
+  ) => {
     sdk.field.setValue(ev.target.value)
   }
 
   return (
-    <NativeSelect
-      defaultValue={initialData || defaultValue}
-      onChange={handleChange}
-      disabled={sdk.form.readOnly}
-    >
-      {options.map(({ id, label }) => (
-        <option key={id} value={id}>
-          {label}
-        </option>
-      ))}
-    </NativeSelect>
+    <FormControl fullWidth>
+      <InputLabel id="select-label-id">{sdk.field.schema?.title}</InputLabel>
+      <Select
+        labelId="select-label-id"
+        defaultValue={initialData || defaultValue}
+        disabled={sdk.form.readOnly}
+        onChange={handleChange}
+        onOpen={() => {
+          sdk.frame.setHeight(options.length * 100)
+        }}
+        onClose={() => {
+          sdk.frame.setHeight()
+        }}
+      >
+        {options.map(({ id, label }) => (
+          <MenuItem key={id} value={id}>
+            {label}
+          </MenuItem>
+        ))}
+      </Select>
+      <FormHelperText>{sdk.field.schema?.description}</FormHelperText>
+    </FormControl>
   )
 }
