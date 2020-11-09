@@ -36,7 +36,7 @@ export function Dropdown({
   ) => {
     sdk.field.setValue(ev.target.value)
   }
-  console.log(sdk.field.schema)
+
   return (
     <FormControl fullWidth required={required}>
       <InputLabel id="select-label-id">{sdk.field.schema?.title}</InputLabel>
