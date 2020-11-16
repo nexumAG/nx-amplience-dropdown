@@ -28,7 +28,7 @@ export function Dropdown({
   const { defaultValue, options } = sdk.params.instance as DropdownParams
 
   React.useEffect(() => {
-    sdk.field.setValue(defaultValue)
+    sdk.field.setValue(initialData || defaultValue)
   }, [sdk])
 
   const handleChange = (
